@@ -1,0 +1,15 @@
+can you make a flowchart with 10 states and 2-3 choices per state in this format: 
+
+flowchart TD
+    A[1] -->|choice| B[2]
+    A --> |choice| C[3]
+    B -->|choice| D[4]
+    B -->|choice| E[5]
+    C -->|choice| D[4]
+    C -->|choice| E[5]
+    C -->|choice| F[6]
+
+
+can you make a story and make a description for each of the states (each of the numbers) and a description for the choices between them (ex. choice state-to-state), making sure that the story flows logically for each choice. States that have no choices that start from them are final ending states. some of the ending states should be a good ending, while other ending states should be a bad ending. 
+do it according to this flowchart:
+

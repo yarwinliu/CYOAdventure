@@ -1,0 +1,56 @@
+The Lost Temple - fixed
+
+State 1:
+You stand at the foot of a towering, overgrown temple, sunlight filtering through the dense jungle canopy.  Moss and vines cling to the ancient stone, whispering secrets of a bygone era.  Do you:
+
+Choice 1->2: Cautiously enter the temple 
+Choice 1->3: Circle the temple, searching for another entrance
+
+State 2: The Dusty Chamber
+You push open the heavy stone door, revealing a vast chamber choked with dust motes dancing in a shaft of light.  Cobwebs drape statues of forgotten gods, and the air hangs heavy with the scent of time.  Do you:
+
+Choice 2->4: Explore further into the temple
+Choie 2->5: Turn back and seek another way in 
+
+State 3: The Hidden Passage
+Circling the temple, you spot a narrow, overgrown passage hidden beneath a tangle of vines.  Do you:
+
+Choice 3->4: Squeeze through the passage 
+Choice 3->5: Leave the passage for now and continue your search 
+Choice 3->6: Retreat back to the temple entrance 
+
+State 4: The Puzzle Room
+Your chosen path leads you to a room adorned with strange symbols etched into the walls.  In the center lies a pedestal holding a shimmering crystal.  Do you:
+
+Choice 4->7: Touch the crystal 
+Choice 4->8: Examine the symbols for clues 
+
+State 5: The Collapsing Corridor
+Following a dark corridor, you hear a rumble behind you.  The floor gives way, sending you tumbling down a dusty chute.  You land with a thud in a dimly lit chamber.  Do you:
+
+Choice 5->9: Investigate your surroundings 
+Choice 5->10: Call out for help 
+
+State 6: The Guarded Entrance
+Returning to the temple entrance, you find two imposing stone guardians blocking your path.  (This is a dead end)
+
+State 7:  The Crystal's Curse
+As your fingers touch the crystal, a surge of energy engulfs you.  The room shimmers, and two doorways appear before you.  Do you choose the:
+
+Choice 7->11: Left doorway 
+Choice 7->8: Right doorway. This outcome was previously state 8
+
+State 8:  The Solved Puzzle
+After carefully studying the symbols, you decipher the puzzle and activate a hidden mechanism.  A secret passage opens in the wall.  Do you:
+
+Choice 8->11: Enter the passage 
+Choice 8->9: Continue exploring the room for more secrets 
+
+State 9: The Hidden Treasure Room
+Your investigation reveals a hidden chamber overflowing with gold and jewels.  Blinded by riches, you forget your quest and succumb to greed.  (Rejected Ending)
+
+State 10:  The Helpful Spirit
+You call out for help, and a wispy, translucent figure appears.  It reveals the true nature of the temple and guides you to the hidden passage.  (Congratulations! You have reached the Good Ending)
+
+State 11: The Temple Heart
+Following the hidden passage, you reach the heart of the temple - a pulsating chamber filled with radiant energy.  You have successfully navigated the temple's secrets.  (Congratulations! You have reached the Good Ending)
