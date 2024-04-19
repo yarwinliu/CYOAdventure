@@ -1,16 +1,18 @@
 //define variables: states, options, transitions
 interface State {
     state: number;
-    next: number[]; //the choices for next state from the current
+    next: stateChange[]; //the choices for next state from the current
     story: string;
+    heartChange?: number;
+    //agilityChange?: number; 
+    //strengthChange?: number;
+    //luckChange?: number;
 }
 
-//syntax for declaring a state
-let state1: State = {
-    state: 1,
-    next: [2,3],
-    story: "You stand at the foot of a towering, overgrown temple, sunlight filtering through the dense jungle canopy.  Moss and vines cling to the ancient stone, whispering secrets of a bygone era.  Do you:",
-};
+interface stateChange {
+    state: State;
+    description: string;
+}
 
 //function to automate turning states into State objects
 //TODO: scrape from states.txt
@@ -21,15 +23,15 @@ function initStates(){
     }
 }
 
-//function to compute the next state
-function transition(st: State, op: number){
+//function takes in(state obj and option number) and out()
+function transition(st: State, op: number){ //option
     if(op==-1){
         console.log(`reached an end state`);
     }
 
-    if(st.next.includes(op)){
-        return op;
+    if(st.next.length <= op){
+        return st.next[op];
     } else {
-        console.log(`${op} not found in st.next`);
+        console.log(`${op} out of bounds, there are not this many options available`);
     }
 }
