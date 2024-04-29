@@ -8,25 +8,46 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { GameScreen } from "@/components/game-screen"
 import { SettingsScreen } from "@/components/settings-screen"
+import WinScreen from "@/components/win-screen"
+import LoseScreen from "@/components/lose-screen"
+import NeutralEndScreen from "@/components/end-neutral"
+
 
 export function MainMenu() {
   const [showGameScreen, setShowGameScreen] = useState(false); // State to control the visibility of the GameScreen
   const [showSettingsScreen, setShowSettingsScreen] = useState(false); // State to control the visibility of the GameScreen
+  const [showWin, setWin] = useState(false);
+  const [showLose, setLose] = useState(false);
+  const [showNeutral, setNeutral] = useState(false);
+  
   console.log(showGameScreen, "showGameScreen")
   const handleStartClick = () => {
     console.log("Start Clicked")
     console.log(showGameScreen, "showGameScreen")
     setShowGameScreen(true);
+    //setWin(true);
   };
   const handleSettingsClick = () => {
     console.log("Settings Clicked")
     console.log(showSettingsScreen, "showSettingsScreen")
     setShowSettingsScreen(true);
   }
+  const handleWin = () => {
+    console.log("win path has been selected")
+    setWin(true);
+  }
+  const handleLose = () => {
+    console.log("lose path has been selected")
+    setLose(true);
+  }
+  const handleNeutral = () => {
+    console.log("neutral path has been selected")
+    setNeutral(true);
+  }
 
   return (
     <div>
-    {(!showGameScreen && !showSettingsScreen) &&  (
+    {(!showGameScreen && !showSettingsScreen && !showWin && !showLose && !showNeutral) &&  (
       <div className="flex h-screen flex-col items-center justify-center bg-white px-4">
       <h1 className="mb-8 text-5xl font-semibold italic text-black">Choose Your Own Story</h1>
       <Button className="mb-4 w-64 py-3 text-lg font-medium" onClick={handleStartClick}>
@@ -42,6 +63,15 @@ export function MainMenu() {
     )}
     {showSettingsScreen && (
       <SettingsScreen />
+    )}
+    {showWin && (
+      <WinScreen />
+    )}
+    {showLose && (
+      <LoseScreen />
+    )}
+    {showNeutral && (
+      <NeutralEndScreen />
     )}
     </div>
   )
