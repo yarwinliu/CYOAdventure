@@ -1,30 +1,31 @@
 //define variables: states, options, transitions
-interface State {
+export interface State {
     state: number;
     next: stateChange[]; //the choices for next state from the current
     story: string;
     heartChange?: number;
+    status?: string;
     //agilityChange?: number; 
     //strengthChange?: number;
     //luckChange?: number;
 }
 
-interface stateChange {
+export interface stateChange {
     state: State;
-    description: string;
+    description: any;
 }
 
 //function to automate turning states into State objects
 //TODO: scrape from states.txt
-function initStates(){
-    let i=0;
-    while(i<15){
+// function initStates(){
+//     let i=0;
+//     while(i<15){
         
-    }
-}
+//     }
+// }
 
 //function takes in(state obj and option number) and out()
-function transition(st: State, op: number){ //option
+export function transition(st: State, op: number){ //option
     if(op==-1){
         console.log(`reached an end state`);
     }

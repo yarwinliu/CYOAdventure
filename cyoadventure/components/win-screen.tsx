@@ -4,8 +4,9 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import Link from "next/link"
+//import currState from "@/components/game-screen"
 
-export default function WinScreen() {
+export default function WinScreen(currState: any) {
     const handlePlayAgain = () => {
         window.location.reload(); // Reload the page
     };
@@ -20,7 +21,7 @@ export default function WinScreen() {
         <h1 className="text-4xl font-bold text-center mb-4 text-gray-900 dark:text-gray-50">Congratulations!</h1>
         <p className="text-lg text-center text-gray-600 dark:text-gray-400 mb-8">
           You've successfully completed your adventure. Well done!
-        </p>
+        </p> 
         <div className="flex justify-center gap-4">
             <button
             onClick={handlePlayAgain}

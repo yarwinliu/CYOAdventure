@@ -4,7 +4,60 @@
 * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
 */
 import { Button } from "@/components/ui/button"
-export function GameScreen() {
+import { State } from "@/app/stateHelpers"
+import * as myStates from "@/app/stateDeclare"
+
+export function GameScreen({ currState, onStateChange, journeyText, optionAText, optionBText, optionCText, onJourneyTextChange, onOptionAChange, onOptionBChange, onOptionCChange, onWin, onLose, onNeutral }) {
+  //let currState: State = myStates.state1; //the start state
+
+  // Functions to handle changing the texts
+  const HandleClick = (option:number) => {
+    if(currState.next.length==0){ //if ending of the game
+      if(currState.status=="win"){onWin();}
+      if(currState.status=="lose"){onLose();}
+      if(currState.status=="neutral"){onNeutral();}
+    }
+    onOptionAChange(""); //clear the text first
+    onOptionBChange("");
+    onOptionCChange("");
+
+    if(currState.next.length>=option){
+
+      //console.log("the state is now: ", currState.next[option].state.state)
+
+      currState = currState.next[option].state;
+      onStateChange(currState);
+      //console.log("the state is: ", currState.state)
+
+    } else{
+      console.log("not a valid state");
+    }
+
+    if(currState.next.length>1){
+      onOptionAChange(currState.next[0].description);
+    } 
+    if(currState.next.length>1){
+      onOptionBChange(currState.next[1].description);
+    }
+    if(currState.next.length>2){
+      onOptionCChange(currState.next[2].description);
+    }
+    
+    onJourneyTextChange(currState.story);
+  }
+
+  const handleOptionAButtonClick = () => {
+    HandleClick(0);
+  };
+
+  const handleOptionBButtonClick = () => {
+    HandleClick(1);
+  };
+
+  const handleOptionCButtonClick = () => {
+    HandleClick(2);
+  };
+
   return (
     <div className="max-w-screen mx-auto p-4 bg-white h-screen">
       <div className="flex justify-between items-center mb-6">
@@ -21,7 +74,7 @@ export function GameScreen() {
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="bg-gray-100 p-4">
-          <p className="text-lg font-semibold text-black">The journey begins with a single step...</p>
+          <p className="text-lg font-semibold text-black">{journeyText}</p>
         </div>
         <div className="bg-gray-100 p-4">
           <img
@@ -40,9 +93,9 @@ export function GameScreen() {
         </div>
       </div>
       <div className="flex justify-center space-x-2 mt-6">
-        <Button className="black px-12 py-3">Option A</Button>
-        <Button className="black px-12 py-3">Option B</Button>
-        <Button className="black px-12 py-3">Option C</Button>
+        <Button className="black px-12 py-3" onClick={handleOptionAButtonClick}>{optionAText}</Button>
+        <Button className="black px-12 py-3" onClick={handleOptionBButtonClick}>{optionBText}</Button>
+        <Button className="black px-12 py-3" onClick={handleOptionCButtonClick}>{optionCText}</Button>
       </div>
     </div>
   )
