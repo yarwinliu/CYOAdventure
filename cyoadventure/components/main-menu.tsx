@@ -14,7 +14,6 @@ import NeutralEndScreen from "@/components/end-neutral"
 import {State} from "@/app/stateHelpers"
 import * as myStates from "@/app/stateDeclare"
 
-
 export function MainMenu() { 
   const [showGameScreen, setShowGameScreen] = useState(false); // State to control the visibility of the GameScreen
   const [showSettingsScreen, setShowSettingsScreen] = useState(false); // State to control the visibility of the GameScreen

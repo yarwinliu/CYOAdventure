@@ -3,6 +3,9 @@ import Image from "next/image";
 import  runChat  from "next/gemini";
 import { MainMenu } from "@/components/main-menu"
 
+import backgroundImage from "components/title.jpeg"; // Import the background image
+
+
 export default function Home() {
   return (
     <div>

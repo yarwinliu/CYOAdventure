@@ -3,9 +3,29 @@
 * @see https://v0.dev/t/R2axIWy95x4
 * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
 */
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { State } from "@/app/stateHelpers"
 import * as myStates from "@/app/stateDeclare"
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from "firebase/app";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDwQsvw8AJXboF0GmWygf0gtZnd45NM7Cs",
+  authDomain: "cyoa-38225.firebaseapp.com",
+  projectId: "cyoa-38225",
+  storageBucket: "cyoa-38225.appspot.com",
+  messagingSenderId: "599148130055",
+  appId: "1:599148130055:web:2c839ab233f15534641fa2"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// const [optionAText, hideOptionAText] = useState(false);
+// const [optionBText, hideOptionBText] = useState(false);
+// const [optionCText, hideOptionCText] = useState(false);
 
 export function GameScreen({ currState, onStateChange, journeyText, optionAText, optionBText, optionCText, onJourneyTextChange, onOptionAChange, onOptionBChange, onOptionCChange, onWin, onLose, onNeutral }) {
   //let currState: State = myStates.state1; //the start state
@@ -58,6 +78,39 @@ export function GameScreen({ currState, onStateChange, journeyText, optionAText,
     HandleClick(2);
   };
 
+  const [imageUrl, setImageUrl] = useState(''); // State variable to store the image URL
+
+  useEffect(() => {
+    // Fetch the image URL from Firebase when the component mounts or when currentState changes
+    console.log('Current state:', currState);
+    if (currState) {
+      getImageUrlFromFirebase(currState)
+        .then(imageUrl => {
+          setImageUrl(imageUrl);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, [currState]);
+
+  // Get a reference to the storage service
+  const storage = getStorage(app);
+
+  // Function to get image URL from Firebase storage
+  const getImageUrlFromFirebase = async (currentState) => {
+    try {
+      const imageRef = ref(storage, `state${currentState.state}.jpeg`);
+      const imageUrl = await getDownloadURL(imageRef);
+      console.log('Image URL:', imageUrl);
+      return imageUrl;
+    } catch (error) {
+      console.error('Error:', error);
+      throw error; // Throw the error to handle it in the component
+    }
+  };
+
+
   return (
     <div className="max-w-screen mx-auto p-4 bg-white h-screen">
       <div className="flex justify-between items-center mb-6">
@@ -67,43 +120,51 @@ export function GameScreen({ currState, onStateChange, journeyText, optionAText,
           <HeartIcon className="w-6 h-6 text-red-500" />
         </div>
         <div className="flex space-x-4">
-          {/* <div className="bg-gray-200 px-4 py-1">Potential</div>
-          <div className="bg-gray-200 px-4 py-1">Stats</div> */}
+          <div className="bg-gray-200 px-4 py-1">Potential</div>
           <SettingsIcon className="w-6 h-6 text-gray-600" />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="bg-gray-100 p-4">
-          <p className="text-lg font-semibold text-black">{journeyText}</p>
+          <p className="text-lg font-semibold text-black text-center">{journeyText}</p>
         </div>
-        <div className="bg-gray-100 p-4">
-          <img
-            alt="Placeholder image"
-            className="mb-2"
-            height="auto"
-            src="/placeholder.svg"
-            style={{
-              maxWidth: "100%",
-              height: "auto",
-              objectFit: "cover",
-            }}
-            width="100%"
-          />
-          <p className="text-lg font-semibold text-black"> Image </p>
+        <div className="bg-gray-100 p-4 flex justify-center items-center">
+          {imageUrl && (
+            <img
+              alt="Uploaded"
+              className="mb-2"
+              height="auto"
+              src={imageUrl}
+              style={{
+                maxWidth: "80%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              width="100%"
+            />
+          )}
         </div>
       </div>
       <div className="flex justify-center space-x-2 mt-6">
-        <Button className="black px-12 py-3" onClick={handleOptionAButtonClick}>{optionAText}</Button>
-        <Button className="black px-12 py-3" onClick={handleOptionBButtonClick}>{optionBText}</Button>
-        <Button className="black px-12 py-3" onClick={handleOptionCButtonClick}>{optionCText}</Button>
+        <Button className="black px-12 py-3" onClick={handleOptionAButtonClick}>
+          {optionAText}
+        </Button>
+        <Button className="black px-12 py-3" onClick={handleOptionBButtonClick}>
+          {optionBText}
+        </Button>
+        <Button className="black px-12 py-3" onClick={handleOptionCButtonClick}>
+          {optionCText}
+        </Button>
       </div>
     </div>
-  )
+    );
 }
 
 interface HeartIconProps {
   [key: string]: any;
 }
+
+
 
 function HeartIcon(props: HeartIconProps) {
   return (
